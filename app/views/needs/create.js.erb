@@ -1,5 +1,5 @@
 $('#need_text').val("")
-$('.item').first().before("<div class='item' id='<%= @need[1] %>'></div>")
+$('#needs').html("<div class='item' id='<%= @need[1] %>'></div>" + $('#needs').html())
 $('#<%= @need[1] %>').html("<div class='info'><%= @need[0][:date] %>: </div>\
   <div class='text'>\
     <%= @need[0][:text] %>\
