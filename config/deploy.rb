@@ -2,31 +2,32 @@ set :user, 'vizvamitra'
 set :domain, 'Raumarepola'
 set :application, "todolist"
 
-# RVM
+# adjust if you are using RVM, remove if you are not
 set :rvm_type, :user
 set :rvm_ruby_string, 'ruby-2.0.0-p247'
 require 'rvm/capistrano'
 
 # file paths
-set :repository, "#{user}@#{domain}:git/#{application}.git"
-set :deploy_to, "/home/#{user}/deploy/#{application}"
+set :repository,  "#{user}@#{domain}:git/#{application}.git" 
+set :deploy_to, "/home/#{user}/deploy/#{application}" 
 
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-
-role :app, domain     # This may be the same as your `Web` server
-role :db,  domain     # This is where Rails migrations will run
-role :db,  domain, primary: true
+# distribute your applications across servers (the instructions below put them
+# all on the same server, defined above as 'domain', adjust as necessary)
+role :app, domain
+role :web, domain
+role :db, domain, :primary => true
 
 # you might need to set this if you aren't seeing password prompts
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+# As Capistrano executes in a non-interactive mode and therefore doesn't cause
+# any of your shell profile scripts to be run, the following might be needed
+# if (for example) you have locally installed gems or applications.  Note:
+# this needs to contain the full values for the variables set, not simply
+# the deltas.
+# default_environment['PATH']='<your paths>:/usr/local/bin:/usr/bin:/bin'
+# default_environment['GEM_PATH']='<your paths>:/usr/lib/ruby/gems/1.8'
 
 # miscellaneous options
 set :deploy_via, :remote_cache
