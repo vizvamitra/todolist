@@ -14,7 +14,6 @@ body { margin:0; }
 }
 
 #needs{
-
     .completed{
         background-color: #e0ffe0;
 
@@ -66,6 +65,10 @@ body { margin:0; }
             margin-left: 10px;
 
             a{ color: #39f; }
+            a:hover{ 
+                background-color: transparent;
+                color: #f96
+             }
         }
     }
 }
@@ -88,4 +91,16 @@ input[type=text], textarea{
 input[type=text]:focus, textarea{
     outline: none;
     box-shadow: 0 0 7px #9ecaed;
+}
+
+footer{
+    height:60px;
+    margin-top:-60px;
+
+    text-align:center;
+
+    p{
+        color:gray;
+        margin: 1px;
+    }
 }

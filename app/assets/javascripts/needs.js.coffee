@@ -4,6 +4,7 @@
 $ ->
     $('body').css('width', $(document).width());
     $('body').css('height', $(document).height()-20);
+    $('#needs').css('min-height', $(document).height()-100)
     $(window).resize ->
         $('body').css('width', $(this).width());
         $('body').css('height', $(this).height()-20);
