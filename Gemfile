@@ -40,6 +40,7 @@ end
 
 # Use Capistrano for deployment
 gem 'capistrano'
+gem 'rvm-capistrano'
 
 group :production do
   gem 'mysql2'
