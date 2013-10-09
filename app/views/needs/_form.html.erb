@@ -1,0 +1,20 @@
+<%= form_for(@need, remote: true) do |f| %>
+  <% if @need.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@need.errors.count, "error") %> prohibited this need from being saved:</h2>
+
+      <ul>
+      <% @need.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" style='float:left'>
+    <%= f.text_field :text, size: 30 %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Добавить" %>
+  </div>
+<% end %>

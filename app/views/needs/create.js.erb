@@ -1,0 +1,17 @@
+$('#need_text').val("")
+$('.item').first().before("<div class='item' id='<%= @need[1] %>'></div>")
+$('#<%= @need[1] %>').html("<div class='info'><%= @need[0][:date] %>: </div>\
+  <div class='text'>\
+    <%= @need[0][:text] %>\
+  </div>\
+  <div class='edit' style='display:none;'>\
+    <textarea><%= @need[0][:text] %></textarea>\
+  </div>"+
+  '<div class="controls">\
+    <input type="checkbox" class="complete_doing">\
+    <%= p link_to 'Удалить', "/#{@need[1]}", method: :delete, remote: true %>\
+  </div>')
+$('#<%= @need[1] %>').settings()
+$('#<%= @need[1] %>').find('.complete_doing').click(function() {
+  $(this).complete_doing()
+})
