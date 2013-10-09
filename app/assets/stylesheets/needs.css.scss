@@ -7,21 +7,26 @@ body { margin:0; }
     width:800px;
     margin:auto;
     margin-top:10px;
+
+    h1 {
+        text-align:center;
+    }
 }
 
 #needs{
+
     .completed{
-        background-color: #efe;
+        background-color: #e0ffe0;
 
         .text{
             text-decoration: line-through;
         }
     }
-
     .item{
+        padding-left:10px;
+        padding-right:10px;
         margin-top:10px;
         overflow: hidden;
-        position: relative;
         min-height:25px;
 
         .info, .text, .edit {
@@ -37,7 +42,7 @@ body { margin:0; }
         }
         .text{
             font-size:1.2em;
-            max-width:560px;
+            max-width:540px;
             width:100%;
             min-height:25px;
             word-wrap:break-word;
@@ -50,7 +55,7 @@ body { margin:0; }
             textarea{
                 resize: none;
                 overflow:hidden;
-                width: 560px;
+                width: 540px;
                 font-family: verdana;
                 font-size:1.1em;
             }

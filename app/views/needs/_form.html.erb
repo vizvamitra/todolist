@@ -1,20 +1,8 @@
-<%= form_for(@need, remote: true) do |f| %>
-  <% if @need.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@need.errors.count, "error") %> prohibited this need from being saved:</h2>
-
-      <ul>
-      <% @need.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_tag("/", method: :post, id: "new_need", remote: true) do %>
   <div class="field" style='float:left'>
-    <%= f.text_field :text, size: 30 %>
+    <%= text_field_tag :text, "", options = {size: "30", id: "need_text"}%>
   </div>
   <div class="actions">
-    <%= f.submit "Добавить" %>
+    <%= submit_tag "Добавить" %>
   </div>
 <% end %>

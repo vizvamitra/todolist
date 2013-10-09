@@ -1,21 +1,20 @@
 class NeedsController < ApplicationController
-
   # GET /
   # GET /
   def index
     session[:needs] ||= {}
     @needs = session[:needs].sort {|a,b| b[0]<=>a[0]} #Need.all
-    @need = Need.new
   end
 
   # POST /
   # POST /
   def create
-    @need = Need.new(need_params)
-    date = Time.now
-    session[:needs].merge!( { "#{date.to_i}" =>
-      {text: @need.text, date: date.strftime("%m.%d.%Y %H:%M"),
-      competed: false} }) if @need.valid?
+    unless params[:text].empty?
+      date = Time.now
+      session[:needs].merge!( { "#{date.to_i}" =>
+        {text: params[:text], date: date.strftime("%m.%d.%Y %H:%M"),
+        competed: false} })
+    end
     
     respond_to do |format|
         format.js { @need = session[:needs]["#{date.to_i}"], date.to_i }
@@ -42,20 +41,10 @@ class NeedsController < ApplicationController
   # DELETE /1
   # DELETE /1.json
   def destroy
-    if session[:user_id]
-      #
-    else
-      session[:needs].delete(params[:need])
-    end
+    session[:needs].delete(params[:need])
     
     respond_to do |format|
       format.js { @date = params[:need] }
     end
   end
-
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def need_params
-      params.require(:need).permit(:text, :done)
-    end
 end

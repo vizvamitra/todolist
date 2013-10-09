@@ -3,7 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
     $('body').css('width', $(document).width());
-    $('body').css('height', $(document).height()-10);
+    $('body').css('height', $(document).height()-20);
+    $(window).resize ->
+        $('body').css('width', $(this).width());
+        $('body').css('height', $(this).height()-20);
     $('#need_text').focus()
     $('.item:not(.completed)').settings()
     $('.complete_doing').click ->
@@ -22,7 +25,7 @@ $.fn.complete_doing = ->
 
 $.fn.settings = ->
     $(this).hover ->
-        $(this).css('background-color', '#f0ffff')
+        $(this).css('background-color', '#f6f6f6')
     $(this).mouseleave ->
         $(this).css('background-color', 'white')
     $(this).find('.text').click ->
