@@ -25,7 +25,6 @@ body { margin:0; }
         padding-left:10px;
         padding-right:10px;
         overflow: hidden;
-        min-height:39px;
 
         .info, .text, .edit {
             display: block;
@@ -46,6 +45,7 @@ body { margin:0; }
         .text{
             font-size:1.2em;
             max-width:542px;
+            height:100%;
             width:100%;
             word-wrap:break-word;
             padding-left: 4px;

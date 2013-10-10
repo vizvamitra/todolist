@@ -8,11 +8,11 @@
         <div class='info'><%= need[:date] %>: </div>
         <div class='text'><%= need[:text].gsub(/\\n/, "\n") %></div>
         <div class='edit' style="display:none;">
-          <textarea><%= need[:text] %></textarea>
+          <textarea><%= need[:text].gsub(/\\n/, "\n") %></textarea>
         </div>
         <div class='controls'>
-          <input type='checkbox' class='complete_doing' <%= 'checked' if need[:completed] %>>
-          <%= link_to 'Удалить', "/#{date}", method: :delete, remote: true %>
+          <input type='checkbox' class='complete_need' <%= 'checked' if need[:completed] %>>
+          <%= link_to 'Удалить', "/#{date}" %>
         </div>
       </div>
     <% end %>

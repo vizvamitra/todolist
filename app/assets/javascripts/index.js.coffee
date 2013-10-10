@@ -21,26 +21,6 @@ $ ->
         $('#new_need').post_new_need( $('#need_text').val() )
     $('.item').each (->
         $(this).settings())
-    $('.complete_doing').click ->
-        $(this).complete_doing()
-
-$.fn.update_doing = (text) ->
-    if (text != "")
-        date = $(this).parent().parent().attr('id')
-        $.ajax date,
-            type: 'PATCH'
-            data: {text: text.replace(/\r?\n/g, "\\n")}
-        $(this).parent().parent().find(".text").show()
-        $(this).parent('.edit').hide()
-    else
-        $(this).parent().parent().find(".text").show()
-        $(this).parent('.edit').hide()
-        $(this).val( $(this).parent().parent().find(".text").html() )
-
-$.fn.complete_doing = ->
-    $.ajax $(this).parent().parent().attr('id'),
-        type: 'PATCH'
-        data: { complete: $(this).is(':checked') }
 
 $.fn.settings = ->
     if (!$(this).hasClass("completed"))
@@ -52,15 +32,40 @@ $.fn.settings = ->
             $(this).hide()
             edit = $(this).parent().find('.edit')
             edit.show().find('textarea').focus()
+    $(this).find('.complete_need').click ->
+        $(this).complete_need()
+    $(this).find('a').click (e) ->
+        e.preventDefault();
+        $(this).remove_need()
     $(this).find('textarea').autogrow();
     $(this).find('textarea').focusout ->
-        $(this).update_doing($(this).val())                
+        $(this).update_need($(this).val())                
     $(this).find('textarea').keydown (event) ->
         if event.which == 13 && event.ctrlKey
             event.preventDefault();
             event.stopPropagation();
             $("#need_text").focus();
     $(this).css('min-height', $(this).find('.edit').height())
+
+$.fn.update_need = (text) ->
+    if (text != "")
+        date = $(this).parent().parent().attr('id')
+        $.ajax date,
+            type: 'PATCH'
+            data: {text: text.replace(/\r?\n/g, "\\n")}
+        $(this).parent().parent().find(".text").show()
+        $(this).parent('.edit').hide()
+        $(this).parent().parent().css('min-height', $(this).parent().height())
+    else
+        $(this).parent().parent().find(".text").show()
+        $(this).parent('.edit').hide()
+        $(this).val( $(this).parent().parent().find(".text").html() )
+        $(this).autogrow();
+
+$.fn.complete_need = ->
+    $.ajax $(this).parent().parent().attr('id'),
+        type: 'PATCH'
+        data: { complete: $(this).is(':checked') }
 
 $.fn.post_new_need = (text) ->
     if (text != "")
@@ -71,3 +76,8 @@ $.fn.post_new_need = (text) ->
                 type: "POST",
                 data: { text: text.replace(/\r?\n/g, "\\n") }
             setTimeout (-> window.semaphore = 1), 1000
+
+$.fn.remove_need = ->
+    $.ajax
+        url: "/"+$(this).parent().parent().attr('id'),
+        type: "DELETE"
