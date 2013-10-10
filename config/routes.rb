@@ -1,10 +1,10 @@
 Todolist::Application.routes.draw do
-  root 'needs#index', as: 'index'
-  get     '/',                to: 'needs#index', as: 'needs'
-  post    '/',                to: 'needs#create'
-  patch   ':date',            to: 'needs#update'
-  patch   ':date/:complete',  to: 'needs#update'
-  delete  ':need',            to: 'needs#destroy'
+  root 'index#index', as: 'index'
+  get     '/',                to: 'index#index'
+  post    '/',                to: 'index#create'
+  patch   ':date',            to: 'index#update'
+  patch   ':date/:complete',  to: 'index#update'
+  delete  ':need',            to: 'index#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,106 @@
+// Place all the styles related to the Needs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body { margin:0; }
+
+#main {
+    width:800px;
+    margin:auto;
+    margin-top:10px;
+
+    h1 {
+        text-align:center;
+    }
+}
+
+#needs{
+    .completed{
+        background-color: #e0ffe0;
+
+        .text{
+            text-decoration: line-through;
+        }
+    }
+    .item{
+        padding-left:10px;
+        padding-right:10px;
+        margin-top:10px;
+        overflow: hidden;
+        min-height:25px;
+
+        .info, .text, .edit {
+            display: block;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .info {
+            color: gray;
+            vertical-align:top;
+            clear: right;
+        }
+        .text{
+            font-size:1.2em;
+            max-width:540px;
+            width:100%;
+            min-height:25px;
+            word-wrap:break-word;
+            padding-top: 4px;
+            padding-left: 4px;
+            white-space:pre-wrap;
+        }
+        .edit{
+            font-size:1.1em;
+
+            textarea{
+                resize: none;
+                overflow:hidden;
+                width: 540px;
+                font-family: verdana;
+                font-size:1.1em;
+            }
+        }
+        .controls{
+            vertical-align:top;
+            float:right;
+            margin-left: 10px;
+
+            a{ color: #39f; }
+            a:hover{ 
+                background-color: transparent;
+                color: #f96
+             }
+        }
+    }
+}
+
+#new_need{
+    display: block;
+    margin: auto;
+    width: 352px;
+
+    .actions{
+        display: inline-block;
+        margin-left: 10px;
+    }
+}
+
+input[type=text], textarea{
+    border: 2px solid #dadada;
+    border-radius: 7px;
+}
+input[type=text]:focus, textarea{
+    outline: none;
+    box-shadow: 0 0 7px #9ecaed;
+}
+
+footer{
+    height:80px;
+
+    text-align:center;
+
+    p{
+        color:gray;
+        margin: 1px;
+    }
+}

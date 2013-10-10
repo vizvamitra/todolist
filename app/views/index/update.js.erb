@@ -1,0 +1,10 @@
+item = $('#<%= @need[:date] %>')
+<% if @need[:completed] == 'true' %>
+  item.addClass('completed').unbind('mouseenter mouseleave').css('background-color', '#e0ffe0')
+  item.find('.text').unbind('click').css('text-decoration', 'line-through')
+<% elsif @need[:completed] == 'false' %>
+  item.removeClass('completed').css('background-color', '#f6f6f6').settings()
+  item.find('.text').css('text-decoration', 'none')
+<% else %>
+  item.find('.text').html("<%= @need[:text] %>").show()
+<% end %>
