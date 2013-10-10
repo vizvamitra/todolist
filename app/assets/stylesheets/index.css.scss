@@ -65,6 +65,7 @@ body { margin:0; }
                 padding-top: 5px;
                 padding-left:1px;
                 line-height:1.1em;
+                border-radius:0px;
             }
         }
         .controls{
@@ -93,6 +94,8 @@ body { margin:0; }
 
 input[type=text], textarea{
     border: 2px solid #dadada;
+}
+input[type=text]{
     border-radius: 7px;
 }
 input[type=text]:focus, textarea{
