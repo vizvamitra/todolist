@@ -19,7 +19,8 @@ $ ->
     $('#new_need').on 'submit', (e) ->
         e.preventDefault()
         $('#new_need').post_new_need( $('#need_text').val() )
-    $('.item:not(.completed)').settings()
+    $('.item').each (->
+        $(this).settings())
     $('.complete_doing').click ->
         $(this).complete_doing()
 
@@ -29,9 +30,11 @@ $.fn.update_doing = (text) ->
         $.ajax date,
             type: 'PATCH'
             data: {text: text.replace(/\r?\n/g, "\\n")}
+        $(this).parent().parent().find(".text").show()
         $(this).parent('.edit').hide()
     else
-        $(this).parent('.edit').hide().parent().find(".text").show()
+        $(this).parent().parent().find(".text").show()
+        $(this).parent('.edit').hide()
         $(this).val( $(this).parent().parent().find(".text").html() )
 
 $.fn.complete_doing = ->
@@ -40,22 +43,24 @@ $.fn.complete_doing = ->
         data: { complete: $(this).is(':checked') }
 
 $.fn.settings = ->
-    $(this).hover ->
-        $(this).css('background-color', '#f6f6f6')
-    $(this).mouseleave ->
-        $(this).css('background-color', 'white')
-    $(this).find('.text').click ->
-        $(this).hide()
-        edit = $(this).parent().find('.edit')
-        edit.show().find('textarea').focus()
+    if (!$(this).hasClass("completed"))
+        $(this).hover ->
+            $(this).css('background-color', '#f6f6f6')
+        $(this).mouseleave ->
+            $(this).css('background-color', 'white')
+        $(this).find('.text').click ->
+            $(this).hide()
+            edit = $(this).parent().find('.edit')
+            edit.show().find('textarea').focus()
+    $(this).find('textarea').autogrow();
     $(this).find('textarea').focusout ->
         $(this).update_doing($(this).val())                
-    $(this).find('textarea').autogrow();
     $(this).find('textarea').keydown (event) ->
         if event.which == 13 && event.ctrlKey
             event.preventDefault();
             event.stopPropagation();
             $("#need_text").focus();
+    $(this).css('min-height', $(this).find('.edit').height())
 
 $.fn.post_new_need = (text) ->
     if (text != "")

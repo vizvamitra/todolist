@@ -6,5 +6,5 @@ item = $('#<%= @need[:date] %>')
   item.removeClass('completed').css('background-color', '#f6f6f6').settings()
   item.find('.text').css('text-decoration', 'none')
 <% else %>
-  item.find('.text').html("<%= @need[:text] %>").show()
+  item.find('.text').html("<%= @need[:text] %>")
 <% end %>

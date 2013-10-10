@@ -1,8 +1,0 @@
-<%= form_tag("/", method: :post, id: "new_need") do %>
-  <div class="field" style='float:left'>
-    <%= text_field_tag :text, "", options = {size: "30", id: "need_text"}%>
-  </div>
-  <div class="actions">
-    <%= submit_tag "Добавить" %>
-  </div>
-<% end %>

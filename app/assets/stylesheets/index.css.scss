@@ -24,44 +24,50 @@ body { margin:0; }
     .item{
         padding-left:10px;
         padding-right:10px;
-        margin-top:10px;
         overflow: hidden;
-        min-height:25px;
+        min-height:39px;
 
         .info, .text, .edit {
             display: block;
             float: left;
             margin-right: 10px;
+            min-height:39px;
         }
-
+        .info, .text, .controls{
+            min-height:25px;
+            padding-top: 7px;
+        }
         .info {
             color: gray;
             vertical-align:top;
             clear: right;
+            
         }
         .text{
             font-size:1.2em;
-            max-width:540px;
+            max-width:542px;
             width:100%;
-            min-height:25px;
             word-wrap:break-word;
-            padding-top: 4px;
             padding-left: 4px;
             white-space:pre-wrap;
+            padding-bottom: 7px;
+            
         }
         .edit{
-            font-size:1.1em;
+            min-height:39px;
 
             textarea{
                 resize: none;
                 overflow:hidden;
-                width: 540px;
+                width: 536px;
                 font-family: verdana;
-                font-size:1.1em;
+                font-size:1.2em;
+                padding-top: 5px;
+                padding-left:1px;
+                line-height:1.1em;
             }
         }
         .controls{
-            vertical-align:top;
             float:right;
             margin-left: 10px;
 
