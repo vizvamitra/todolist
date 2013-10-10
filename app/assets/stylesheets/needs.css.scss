@@ -47,6 +47,7 @@ body { margin:0; }
             word-wrap:break-word;
             padding-top: 4px;
             padding-left: 4px;
+            white-space:pre-wrap;
         }
         .edit{
             font-size:1.1em;
@@ -95,7 +96,6 @@ input[type=text]:focus, textarea{
 
 footer{
     height:80px;
-    margin-top:-80px;
 
     text-align:center;
 

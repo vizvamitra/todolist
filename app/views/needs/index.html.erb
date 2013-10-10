@@ -6,9 +6,7 @@
     <% @needs.each do |date, need| %>
       <div class='item <%= "completed" if need[:completed] %>' id='<%= date %>'>  
         <div class='info'><%= need[:date] %>: </div>
-        <div class='text'>
-          <%= need[:text] %>
-        </div>
+        <div class='text'><%= need[:text].gsub(/\\n/, "\n") %></div>
         <div class='edit' style="display:none;">
           <textarea><%= need[:text] %></textarea>
         </div>
@@ -23,7 +21,7 @@
 <footer>
 <div id="hints">
   <p>Для изменения текста задания нажмите на него</p>
-  <p>Для сохранения изменений нажмите Enter или просто кликните на пустое пространство</p>
+  <p>Для сохранения изменений нажмите Ctrl+Enter или просто кликните на пустое пространство</p>
   <p>Поставьте галочку, чтобы пометить задание завершённым</p>
 </div>
 <div id='copyright'>&copy; Дмитрий Краснов, 2013</div>
