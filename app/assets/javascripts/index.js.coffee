@@ -3,22 +3,18 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
     window.semaphore = 1
-    $('body').css('width', $(document).width());
-    $('body').css('height', $(document).height()-20);
-    $('#needs').css('min-height', $(document).height()-180)
-    $(window).resize ->
-        $('body').css('width', $(this).width());
-        $('body').css('height', $(this).height()-20);
-        $('#needs').css('min-height', $(this).height()-180)
-    $('#need_text').focus()
-    $('#need_text').keydown (event) ->
-        if event.which == 13
-            event.preventDefault();
-            event.stopPropagation();
+    $('#need_text').autogrow().focus()
+    $('#need_text').unbind('keydown').keydown (event) ->
+        if event.which == 13  && !event.ctrlKey
+            event.preventDefault()
+            event.stopPropagation()
             $('#new_need').post_new_need( $('#need_text').val() )
-    $('#new_need').on 'submit', (e) ->
+        if event.which == 13  && event.ctrlKey            
+            $('#need_text').val( $('#need_text').val()+'\n' )
+    $('#add').click (e) ->
         e.preventDefault()
         $('#new_need').post_new_need( $('#need_text').val() )
+        $("#need_text").focus()
     $('.item').each (->
         $(this).settings())
 
@@ -32,27 +28,31 @@ $.fn.settings = ->
             $(this).hide()
             edit = $(this).parent().find('.edit')
             edit.show().find('textarea').focus()
-    $(this).find('.complete_need').click ->
-        $(this).complete_need()
-    $(this).find('a').click (e) ->
+    $(this).find('.complete_need').unbind('click').click (e) ->
         e.preventDefault();
+        $(this).complete_need()
+    $(this).find('.delete_need').unbind('click').click (e) ->
+        e.preventDefault()
         $(this).remove_need()
-    $(this).find('textarea').autogrow();
-    $(this).find('textarea').focusout ->
-        $(this).update_need($(this).val())                
-    $(this).find('textarea').keydown (event) ->
+        $("#need_text").focus()
+    $(this).find('textarea').autogrow()
+    $(this).find('textarea').unbind('focusout').focusout ->
+        $(this).update_need($(this).val())
+    $(this).find('textarea').unbind('keydown').keydown (event) ->
         if event.which == 13 && event.ctrlKey
-            event.preventDefault();
-            event.stopPropagation();
-            $("#need_text").focus();
+            event.preventDefault()
+            event.stopPropagation()
+            $("#need_text").focus()
     $(this).css('min-height', $(this).find('.edit').height())
 
 $.fn.update_need = (text) ->
     if (text != "")
-        date = $(this).parent().parent().attr('id')
-        $.ajax date,
-            type: 'PATCH'
-            data: {text: text.replace(/\r?\n/g, "\\n")}
+        if (text != $(this).parent().parent().find(".text").html())
+            date = $(this).parent().parent().attr('id')
+            $.ajax
+                url: "/"
+                type: 'PATCH'
+                data: {text: text.replace(/\r?\n/g, "\\n"), date: date}
         $(this).parent().parent().find(".text").show()
         $(this).parent('.edit').hide()
         $(this).parent().parent().css('min-height', $(this).parent().height())
@@ -60,12 +60,13 @@ $.fn.update_need = (text) ->
         $(this).parent().parent().find(".text").show()
         $(this).parent('.edit').hide()
         $(this).val( $(this).parent().parent().find(".text").html() )
-        $(this).autogrow();
 
 $.fn.complete_need = ->
-    $.ajax $(this).parent().parent().attr('id'),
-        type: 'PATCH'
-        data: { complete: $(this).is(':checked') }
+    $.ajax 
+        url: "/",
+        type: 'PATCH',
+        data: { complete: true, date: $(this).parent().parent().attr('id') }
+    $('#need_text').focus()
 
 $.fn.post_new_need = (text) ->
     if (text != "")
@@ -79,5 +80,6 @@ $.fn.post_new_need = (text) ->
 
 $.fn.remove_need = ->
     $.ajax
-        url: "/"+$(this).parent().parent().attr('id'),
-        type: "DELETE"
+        url: "/",
+        type: "DELETE",
+        data: { date: $(this).parent().parent().attr('id') }

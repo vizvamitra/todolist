@@ -1,6 +1,9 @@
-<h1>Надо сделать</h1>
+<h1>Список дел</h1>
 
-<%= render 'form' %>
+<div id="new_need">
+  <textarea id="need_text"></textarea>
+  <a id="add" href="#"></a>
+</div>
 
 <div id='needs'>
     <% @needs.each do |date, need| %>
@@ -11,18 +14,11 @@
           <textarea><%= need[:text].gsub(/\\n/, "\n") %></textarea>
         </div>
         <div class='controls'>
-          <input type='checkbox' class='complete_need' <%= 'checked' if need[:completed] %>>
-          <%= link_to 'Удалить', "/#{date}" %>
+          <%= link_to '', '#', class: 'delete_need' %>
+          <%= link_to '', '#', class: 'complete_need' %>
         </div>
       </div>
     <% end %>
 </div>
 
-<footer>
-<div id="hints">
-  <p>Для изменения текста задания нажмите на него</p>
-  <p>Для сохранения изменений нажмите Ctrl+Enter или просто кликните на пустое пространство</p>
-  <p>Поставьте галочку, чтобы пометить задание завершённым</p>
-</div>
-<div id='copyright'>&copy; Дмитрий Краснов, 2013</div>
-</footer>
+<div id='buffer'></div>

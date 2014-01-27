@@ -3,7 +3,7 @@ class IndexController < ApplicationController
   # GET /
   def index
     if session[:user_id]
-      redirect_to "/#{session[:user_id]}"
+      redirect_to "/#{session[:user_name]}"
     else
       session[:needs] ||= {}
       @needs = session[:needs].sort {|a,b| b[0]<=>a[0]} #Need.all
@@ -28,14 +28,15 @@ class IndexController < ApplicationController
   # PATCH/PUT /needs/1
   # PATCH/PUT /needs/1.json
   def update
+    @need = {date: params[:date]}
     if params[:complete] == 'true'
-      session[:needs][params[:date]][:completed] = true
-    elsif params[:complete] == 'false'
-      session[:needs][params[:date]][:completed] = false
+      need_state = session[:needs][params[:date]][:completed]
+      session[:needs][params[:date]][:completed] = need_state ? false : true
+      @need[:completed] = need_state ? 'false' : 'true'
     else
       session[:needs][params[:date]][:text] = params[:text] unless params[:text].empty?
+      @need[:text] = session[:needs][params[:date]][:text]
     end
-    @need = {date: params[:date], text: params[:text], completed: params[:complete]}
     
     respond_to do |format|
         format.js { @need }
@@ -45,10 +46,10 @@ class IndexController < ApplicationController
   # DELETE /1
   # DELETE /1.json
   def destroy
-    session[:needs].delete(params[:need])
+    session[:needs].delete(params[:date])
     
     respond_to do |format|
-      format.js { @date = params[:need] }
+      format.js { @date = params[:date] }
     end
   end
 end

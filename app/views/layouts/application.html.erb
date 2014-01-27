@@ -5,10 +5,21 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
 </head>
 <body>
   <div id="main">
     <%= yield %>
   </div>
+  <footer>
+    <div id="hints">
+      <p>Для изменения текста задания нажмите на него</p>
+      <p>Для сохранения изменений нажмите Ctrl+Enter или просто кликните на пустое пространство</p>
+      <p>Нажмите на галочку, чтобы пометить задание завершённым</p>
+    </div>
+    <div id='copyright'>&copy; Дмитрий Краснов, 2014</div>
+  </footer>
 </body>
 </html>

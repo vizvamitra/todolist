@@ -1,21 +1,23 @@
 set :user, 'vizvamitra'
-set :domain, 'Raumarepola'
+set :domain, 'horrible'
 set :application, "todolist"
 
 # adjust if you are using RVM, remove if you are not
 set :rvm_type, :user
-set :rvm_ruby_string, 'ruby-2.0.0-p247'
+set :rvm_ruby_string, 'ruby-2.1.0'
 require 'rvm/capistrano'
 
 # file paths
-set :repository,  "#{user}@#{domain}:git/#{application}.git" 
-set :deploy_to, "/home/#{user}/deploy/#{application}" 
+set :repository,  "#{user}@Raumarepola:git/#{application}.git" 
+#set :deploy_to, "/home/#{user}/deploy/#{application}" 
+set :deploy_to, "/home/#{user}/www/#{application}"
 
 # distribute your applications across servers (the instructions below put them
 # all on the same server, defined above as 'domain', adjust as necessary)
-role :app, domain
-role :web, domain
-role :db, domain, :primary => true
+server domain, :app, :web, primary: true
+#role :app, domain
+#role :web, domain
+#role :db, domain, :primary => true
 
 # you might need to set this if you aren't seeing password prompts
 default_run_options[:pty] = true

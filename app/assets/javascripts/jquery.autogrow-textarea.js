@@ -14,7 +14,8 @@
             var minHeight    = $self.height();
             var noFlickerPad = $self.hasClass('autogrow-short') ? 0 : parseInt($self.css('lineHeight')) || 0;
 
-            var shadow = $('<div></div>').css({
+            //if ($('#shadow').length === 0) {
+            var shadow = $('<div id="shadow"></div>').css({
                 position:    'absolute',
                 top:         -10000,
                 left:        -10000,
@@ -24,8 +25,11 @@
                 fontWeight:  $self.css('fontWeight'),
                 lineHeight:  $self.css('lineHeight'),
                 resize:      'none',
-    			'word-wrap': 'break-word'
+                'word-wrap': 'break-word'
             }).appendTo(document.body);
+            //} else {
+              //  var shadow = $('#shadow')
+            //}
 
             var update = function(event)
             {
@@ -35,7 +39,7 @@
                     return r;
                 };
 
-                var val = self.value.replace(/</g, '&lt;')
+                var val = $(self).val().replace(/</g, '&lt;')
                                     .replace(/>/g, '&gt;')
                                     .replace(/&/g, '&amp;')
                                     .replace(/\n$/, '<br/>&nbsp;')
@@ -46,7 +50,6 @@
 				if (event && event.data && event.data.event === 'keydown' && event.keyCode === 13) {
 					val += '<br />';
 				}
-
                 shadow.css('width', $self.width());
                 shadow.html(val + (noFlickerPad === 0 ? '...' : '')); // Append '...' to resize pre-emptively.
                 $self.height(Math.max(shadow.height() + noFlickerPad, minHeight));

@@ -1,10 +1,21 @@
 Todolist::Application.routes.draw do
+
+  get "users/create"
+  get "users/update"
   root 'index#index', as: 'index'
-  get     '/',                to: 'index#index'
-  post    '/',                to: 'index#create'
-  patch   ':date',            to: 'index#update'
-  patch   ':date/:complete',  to: 'index#update'
-  delete  ':need',            to: 'index#destroy'
+  controller :index do
+    get     '/' => :index
+    post    '/' => :create
+    patch   '/' => :update
+    delete  '/' => :destroy
+  end
+  
+  controller :needs do
+    get     ':user_name' => :index
+    post    ':user_name' => :create, as: 'new_need'
+    patch   ':user_name' => :update, as: 'edit_need'
+    delete  ':user_name' => :destroy, as: 'destroy_need'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

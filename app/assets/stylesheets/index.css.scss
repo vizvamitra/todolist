@@ -1,21 +1,58 @@
 // Place all the styles related to the Needs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-body { margin:0; }
+html, body{ height:100%; margin: 0; padding: 0;}
+
+body{
+    margin-top:-18px;
+}
 
 #main {
     width:800px;
     margin:auto;
-    margin-top:10px;
+    margin-bottom:-80px;
+    margin-top:0px;
+    min-height:100%;
 
     h1 {
+        padding-top:10px;
         text-align:center;
+        color:#444;
+    }
+}
+
+#new_need{
+    margin-left: 143px;
+    margin-bottom:10px;
+    width:620px;
+
+    #add{
+        display: block;
+        float: right;
+        margin-right: 20px;
+        background-color:#dfd;
+        height:45px;
+        width:45px;
+        background:image-url("add.png") no-repeat;
+        margin-left:5px;
+    }
+
+    textarea{
+        resize: none;
+        overflow:hidden;
+        width: 536px;
+        font-family: verdana;
+        font-size:1.2em;
+        padding-top: 5px;
+        padding-left:1px;
+        line-height:1.1em;
+        border-radius:0px;
     }
 }
 
 #needs{
     .completed{
-        background-color: #e0ffe0;
+        background-color: #e9ffe9;
 
         .text{
             text-decoration: line-through;
@@ -23,7 +60,6 @@ body { margin:0; }
     }
     .item{
         padding-left:10px;
-        padding-right:10px;
         overflow: hidden;
 
         .info, .text, .edit {
@@ -45,13 +81,14 @@ body { margin:0; }
         .text{
             font-size:1.2em;
             max-width:542px;
+            min-height:32px;
             height:100%;
             width:100%;
             word-wrap:break-word;
             padding-left: 4px;
             white-space:pre-wrap;
             padding-bottom: 7px;
-            
+            display:block;
         }
         .edit{
             min-height:39px;
@@ -71,41 +108,39 @@ body { margin:0; }
         .controls{
             float:right;
             margin-left: 10px;
+            padding-top:0;
 
-            a{ color: #39f; }
-            a:hover{ 
-                background-color: transparent;
-                color: #f96
-             }
+            a{
+                display:block;
+                float:right;
+                width:35px;
+                height:35px;
+            }
+            .delete_need{
+                background:image-url("delete.png") no-repeat;
+            }
+            .complete_need{
+                background:image-url("ready.png") no-repeat;
+            }
         }
     }
 }
 
-#new_need{
-    display: block;
-    margin: auto;
-    width: 352px;
-
-    .actions{
-        display: inline-block;
-        margin-left: 10px;
-    }
-}
-
-input[type=text], textarea{
+textarea{
     border: 2px solid #dadada;
 }
-input[type=text]{
-    border-radius: 7px;
-}
-input[type=text]:focus, textarea{
+textarea:focus{
     outline: none;
     box-shadow: 0 0 7px #9ecaed;
 }
 
+#buffer{
+    height: 80px;
+}
+
 footer{
     height:80px;
-
+    margin-top:-80px;
     text-align:center;
 
     p{

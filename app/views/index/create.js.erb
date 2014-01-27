@@ -1,3 +1,4 @@
+<% $stderr<< @need %>
 $('#need_text').val("")
 $('#needs').prepend("<div class='item' id='<%= @need[1] %>'></div>")
 $('#<%= @need[1] %>').html("<div class='info'><%= @need[0][:date] %>: </div>\
@@ -6,10 +7,7 @@ $('#<%= @need[1] %>').html("<div class='info'><%= @need[0][:date] %>: </div>\
     <textarea><%= @need[0][:text] %></textarea>\
   </div>"+
   '<div class="controls">\
-    <input type="checkbox" class="complete_need">\
-    <%= p link_to 'Удалить', "/#{@need[1]}", method: :delete, remote: true %>\
+    <%= link_to '', '#', class: 'delete_need' %>\
+    <%= link_to '', '#', class: 'complete_need' %>\
   </div>')
 $('#<%= @need[1] %>').settings()
-$('#<%= @need[1] %>').find('.complete_need').click(function() {
-  $(this).complete_need()
-})
