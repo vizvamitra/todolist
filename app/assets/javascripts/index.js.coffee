@@ -19,57 +19,47 @@ $ ->
         $(this).settings())
 
 $.fn.settings = ->
-    if (!$(this).hasClass("completed"))
-        $(this).hover ->
-            $(this).css('background-color', '#f6f6f6')
-        $(this).mouseleave ->
-            $(this).css('background-color', 'white')
-        $(this).find('.text').click ->
-            $(this).hide()
-            edit = $(this).parent().find('.edit')
-            edit.show().find('textarea').focus()
-    $(this).find('.complete_need').unbind('click').click (e) ->
+    $(this).find('.text').focusout ->
+        $(this).linebreak_check()
+        $(this).update_need($(this).text())
+    $(this).find('.text').keydown (event) ->
+        if event.which == 13 && !event.ctrlKey
+            event.preventDefault()
+            $(this).linebreak_check()
+            $("#need_text").focus()
+        if event.which == 13 && event.ctrlKey
+            $(this).paste_newline()
+    $(this).find('.complete_need').click (e) ->
         e.preventDefault();
         $(this).complete_need()
-    $(this).find('.delete_need').unbind('click').click (e) ->
+        $('#need_text').focus()
+    $(this).find('.delete_need').click (e) ->
         e.preventDefault()
         $(this).remove_need()
         $("#need_text").focus()
-    $(this).find('textarea').autogrow()
-    $(this).find('textarea').unbind('focusout').focusout ->
-        $(this).update_need($(this).val())
-    $(this).find('textarea').unbind('keydown').keydown (event) ->
-        if event.which == 13 && event.ctrlKey
-            event.preventDefault()
-            event.stopPropagation()
-            $("#need_text").focus()
-    $(this).css('min-height', $(this).find('.edit').height())
 
 $.fn.update_need = (text) ->
-    if (text != "")
-        if (text != $(this).parent().parent().find(".text").html())
-            date = $(this).parent().parent().attr('id')
+    if (!text.match(/^\n+$/) && text!="")
+        if (text != $(this).parent().find('.shadow').text())
+            date = $(this).parent().attr('id')
             $.ajax
                 url: "/"
                 type: 'PATCH'
                 data: {text: text.replace(/\r?\n/g, "\\n"), date: date}
-        $(this).parent().parent().find(".text").show()
-        $(this).parent('.edit').hide()
-        $(this).parent().parent().css('min-height', $(this).parent().height())
+            $(this).parent().find('.shadow').text(text)
     else
-        $(this).parent().parent().find(".text").show()
-        $(this).parent('.edit').hide()
-        $(this).val( $(this).parent().parent().find(".text").html() )
+        $(this).text($(this).parent().find('.shadow').text())
 
 $.fn.complete_need = ->
     $.ajax 
         url: "/",
         type: 'PATCH',
         data: { complete: true, date: $(this).parent().parent().attr('id') }
-    $('#need_text').focus()
 
 $.fn.post_new_need = (text) ->
     if (text != "")
+        if (text.slice(-1) != "\n")
+            text += "\n"
         if (window.semaphore == 1)
             window.semaphore = 0
             $.ajax
@@ -83,3 +73,20 @@ $.fn.remove_need = ->
         url: "/",
         type: "DELETE",
         data: { date: $(this).parent().parent().attr('id') }
+
+$.fn.paste_newline = ->
+    if (window.getSelection)
+        selection = window.getSelection()
+        range = selection.getRangeAt(0)
+        br = document.createTextNode("\n")
+        range.deleteContents();
+        range.insertNode(br);
+        range.setStartAfter(br);
+        range.setEndAfter(br);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+$.fn.linebreak_check = ->
+    if ($(this).text().slice(-1) != "\n")
+        $(this).text($(this).text() + "\n")

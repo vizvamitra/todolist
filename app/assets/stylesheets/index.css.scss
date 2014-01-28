@@ -5,6 +5,7 @@ html, body{ height:100%; margin: 0; padding: 0;}
 
 body{
     margin-top:-18px;
+    background-color:#dadada;
 }
 
 #main {
@@ -24,45 +25,60 @@ body{
 #new_need{
     margin-left: 143px;
     margin-bottom:10px;
-    width:620px;
+    width:616px;
 
     #add{
         display: block;
         float: right;
-        margin-right: 20px;
-        background-color:#dfd;
         height:45px;
         width:45px;
         background:image-url("add.png") no-repeat;
         margin-left:5px;
     }
+    #add:hover{
+        background:image-url("add_active.png") no-repeat;
+    }
 
     textarea{
+        background-color:#f9f9fc;
         resize: none;
         overflow:hidden;
-        width: 536px;
+        width: 549px;
         font-family: verdana;
         font-size:1.2em;
-        padding-top: 5px;
-        padding-left:1px;
+        padding: 5px 4px 0 4px;
         line-height:1.1em;
         border-radius:0px;
+        border: 0;
+        min-height:40px;
+        box-shadow: inset 0 0 6px #c8c8c8;
+    }
+    textarea:focus{
+        background-color:white;
+        outline: none;
+        box-shadow: inset 0 0 6px #9ecaed;
     }
 }
 
 #needs{
     .completed{
-        background-color: #e9ffe9;
-
         .text{
+            color:#aaa;
             text-decoration: line-through;
         }
+        .complete_need{
+            background:image-url("ready.png") no-repeat !important;
+        }
+    }
+    .item:hover{
+        background-color:#f9f9fc;
     }
     .item{
         padding-left:10px;
+        padding-right:10px;
         overflow: hidden;
 
-        .info, .text, .edit {
+        .info, .text {
             display: block;
             float: left;
             margin-right: 10px;
@@ -80,7 +96,7 @@ body{
         }
         .text{
             font-size:1.2em;
-            max-width:542px;
+            max-width:553px;
             min-height:32px;
             height:100%;
             width:100%;
@@ -89,26 +105,17 @@ body{
             white-space:pre-wrap;
             padding-bottom: 7px;
             display:block;
+            white-space:pre-wrap;
+            margin-right:0px;
         }
-        .edit{
-            min-height:39px;
-
-            textarea{
-                resize: none;
-                overflow:hidden;
-                width: 536px;
-                font-family: verdana;
-                font-size:1.2em;
-                padding-top: 5px;
-                padding-left:1px;
-                line-height:1.1em;
-                border-radius:0px;
-            }
+        .text:focus{
+            background-color:white;
+            outline: none;
+            box-shadow: inset 0 0 6px #9ecaed;
         }
         .controls{
             float:right;
-            margin-left: 10px;
-            padding-top:0;
+            padding-top:7px;
 
             a{
                 display:block;
@@ -119,28 +126,34 @@ body{
             .delete_need{
                 background:image-url("delete.png") no-repeat;
             }
-            .complete_need{
-                background:image-url("ready.png") no-repeat;
+            .delete_need:hover{
+                background:image-url("delete_active.png") no-repeat;
             }
+            .complete_need{
+                background:image-url("not_ready.png") no-repeat;
+            }
+            .complete_need:hover{
+                background:image-url("ready_active.png") no-repeat;
+            }
+        }
+        .shadow{
+            display:none;
         }
     }
 }
 
 textarea{
-    border: 2px solid #dadada;
-}
-textarea:focus{
-    outline: none;
-    box-shadow: 0 0 7px #9ecaed;
+    
 }
 
+
 #buffer{
-    height: 80px;
+    height: 75px;
 }
 
 footer{
-    height:80px;
-    margin-top:-80px;
+    height:75px;
+    margin-top:-75px;
     text-align:center;
 
     p{
